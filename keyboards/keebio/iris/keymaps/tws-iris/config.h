@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_DEFAULT_VAL 50 // brightness
 #define RGBLIGHT_MAX_VAL 50 // brightness
 #define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_STATIC_LIGHT)
+#define RGB_DISABLE_WHEN_USB_SUSPENDED  // turns off lights when PC is suspended
 
 
 
