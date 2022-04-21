@@ -7,7 +7,7 @@ BOOTLOADER = qmk-dfu
 # Build Options
 #   change yes to no to disable
 #
-BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
+BACKLIGHT_ENABLE = no      # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 SPLIT_KEYBOARD = yes
 NKRO_ENABLE = yes            # Enable N-Key Rollover

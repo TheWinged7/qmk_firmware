@@ -29,12 +29,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGBLIGHT_MAX_VAL
 #undef RGBLIGHT_DEFAULT_MODE
 
-#define RGBLIGHT_DEFAULT_HUE 213 // hue
+#define RGBLIGHT_DEFAULT_HUE 100 // hue
+// #define RGBLIGHT_DEFAULT_HUE 213 // hue
 #define RGBLIGHT_DEFAULT_SAT 200 // saturation
-#define RGBLIGHT_DEFAULT_VAL 50 // brightness
-#define RGBLIGHT_MAX_VAL 50 // brightness
+#define RGBLIGHT_DEFAULT_VAL 255 // brightness
+#define RGBLIGHT_LIMIT_VAL 255 // brightness
 #define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_STATIC_LIGHT)
 #define RGB_DISABLE_WHEN_USB_SUSPENDED  // turns off lights when PC is suspended
+#define RGBLIGHT_DISABLE_KEYCODES   // disables the ability to control RGB Light from the keycodes. 
+#define RGBLIGHT_SLEEP   // the RGB lighting will be switched off when the host goes to sleep 
+
 
 
 
