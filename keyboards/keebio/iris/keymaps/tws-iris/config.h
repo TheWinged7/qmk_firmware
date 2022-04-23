@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ONESHOT_TAP_TOGGLE 2
 #define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 250
+#define SPLIT_LAYER_STATE_ENABLE
 
 #undef RGBLIGHT_DEFAULT_HUE
 #undef RGBLIGHT_DEFAULT_SAT
@@ -30,21 +31,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGBLIGHT_DEFAULT_MODE
 
 #define RGBLIGHT_DEFAULT_HUE 100 // hue
-// #define RGBLIGHT_DEFAULT_HUE 213 // hue
-#define RGBLIGHT_DEFAULT_SAT 200 // saturation
-#define RGBLIGHT_DEFAULT_VAL 255 // brightness
 #define RGBLIGHT_LIMIT_VAL 255 // brightness
 #define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_STATIC_LIGHT)
 #define RGB_DISABLE_WHEN_USB_SUSPENDED  // turns off lights when PC is suspended
 #define RGBLIGHT_DISABLE_KEYCODES   // disables the ability to control RGB Light from the keycodes. 
 #define RGBLIGHT_SLEEP   // the RGB lighting will be switched off when the host goes to sleep 
+#define RGBLIGHT_SPLIT
 
 
 
 
 
 // disable the non-static RGB effects
-#undef RGBLIGHT_EFFECT_BREATHING
 #undef RGBLIGHT_EFFECT_RAINBOW_MOOD
 #undef RGBLIGHT_EFFECT_RAINBOW_SWIRL
 #undef RGBLIGHT_EFFECT_SNAKE
