@@ -9,12 +9,60 @@ enum sofle_layers {
 };
 
 
+#ifdef LEADER_ENABLE
+    LEADER_EXTERNS();
+    void matrix_scan_user(void) {
+        LEADER_DICTIONARY() {
+            leading = false;
+            leader_end();
+            SEQ_ONE_KEY(KC_9) {
+                // When I press KC_LEAD and then Backspace, this sends Delete
+                SEND_STRING("<");   
+            }
+            SEQ_ONE_KEY(KC_0) {
+                // When I press KC_LEAD and then Backspace, this sends Delete
+                SEND_STRING(">");   
+            }
+            SEQ_TWO_KEYS(KC_9, KC_9) {
+                // When I press KC_LEAD and then Backspace, this sends Delete
+                SEND_STRING("{");   
+            }
+            SEQ_TWO_KEYS(KC_0, KC_0)     {
+                // When I press KC_LEAD and then Backspace, this sends Delete
+                SEND_STRING("}");   
+            }
+            // // Note: This is not an array, you don't need to put any commas
+            // // or semicolons between sequences.
+            SEQ_TWO_KEYS(KC_S, KC_S) {
+                // When I press KC_LEAD and then double tap S, this sends WIN + SHIFT + S to snip a screenshot
+                SEND_STRING(SS_LSFT( SS_LGUI("s")));
+            }
+
+            // SEQ_THREE_KEYS(KC_X, KC_U, KC_U) {
+            //     // When I press KC_LEAD and tap X and then double tap S, this sends CMD + OPT + CTRL + Eject / Power to shutdown
+            //     register_code(KC_LGUI);  
+            //     register_code(KC_LCTL);
+            //     register_code(KC_LOPT);
+            //     register_code(KC_POWER);
+            //     unregister_code(KC_POWER);
+            //     unregister_code(KC_LCTL);
+            //     unregister_code(KC_LOPT);
+            //     unregister_code(KC_LGUI);
+            // }
+
+        }
+    }
+
+
+#endif
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //  Layer 0 - _base
     [_Base] = LAYOUT( \
     // ,-----------------------------------------.                    ,-----------------------------------------.
-    // | ` ~  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  Del |
-        KC_GRV,  KC_1,  KC_2,  KC_3,  KC_4,  KC_5,                       KC_6,  KC_7,  KC_8,  KC_9, KC_0, KC_DEL, \
+    // | ` ~  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  | Game |
+        KC_GRV,  KC_1,  KC_2,  KC_3,  KC_4,  KC_5,                     KC_6,  KC_7,  KC_8,  KC_9,   KC_0, TG(2), \
     // |------+------+------+------+------+------|                    |------+------+------+------+------+------|
     // | Tab  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |  UP  |   O  |   P  |      |
         KC_TAB, KC_Q,   KC_W,  KC_E,  KC_R,  KC_T,                       KC_Y,  KC_U,  KC_I,  KC_O,  KC_P, KC_NO, \
@@ -22,34 +70,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |LShift|   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |  ; : | Enter|
         KC_LSFT, KC_A,  KC_S,  KC_D,  KC_F,  KC_G,                      KC_H,  KC_J, KC_K,  KC_L, KC_SCLN, KC_ENT, \
     // |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
-    // |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  | , <  | . >  |  / ? |      |
-        KC_LSFT, KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,  KC_NO,      KC_NO, KC_N, KC_M,  KC_COMM, KC_DOT, KC_SLSH, KC_NO, \
+    // |LCTR|   Z  |   X  |   C  |   V  |   B    |-------|    |-------|   N  |   M  | , <  | . >  |  / ? |      |
+        KC_LCTL, KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,  KC_NO,      KC_NO, KC_N, KC_M,  KC_COMM, KC_DOT, KC_SLSH, KC_NO, \
     // `-----------------------------------------/       /     \      \-----------------------------------------'
-    //            | Game | LAlt | LCTR |Arrows| /Space  /       \RShift\  | Bspc | Win  | RAlt | RCTR |
-    //            | mode |      |      | mode |/       /         \      \ |      |      |      |      |
-                 TG(2), KC_LALT, KC_LCTL, OSL(1), KC_SPC,      KC_RSFT, KC_BSPC, KC_RGUI, KC_RALT, KC_RCTL \
+    //            |      |      | ALT  |  Win | /Space  /       \Leader\  | Bspc |Arrows| RAlt | RCTR |
+    //            |      |      |      |      |/       /         \      \ |      | mode |      |      |
+                KC_NO, KC_NO, KC_LALT, KC_RGUI, KC_SPC,           KC_LEAD, KC_BSPC, OSL(1), KC_RALT, KC_RCTL \
     //            `----------------------------------'           '------''---------------------------'
 
         ),
     // Layer 1 - _Arrows
     [_Arrows] = LAYOUT( \
     // ,-----------------------------------------.                    ,-----------------------------------------.
-    // | ESC  |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
+    // | ESC  |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | Game |
+        KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,                      KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_TRNS, \
     // |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-    // | Tab  | Pscr | Ins  | PG Up|      |      |                    | Home |      |  UP  |      |      | F12  |
+    // | Tab  |      | Psc  | Home |      |      |                    | Home |      |  UP  |  F11 | F12  |      |
+       KC_TRNS, KC_NO, KC_PSCR, KC_HOME, KC_PGUP, KC_NO,              KC_HOME, KC_NO, KC_UP, KC_F11, KC_F12, KC_NO, \
     // |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-    // |LShift| Del  | End  |PG DWN|      |      |-------.    ,-------| End  | LEFT | DOWN | RIGHT|  ' " |      |
+    // |LShift| Del  | End  |      |      |      |-------.    ,-------| End  | LEFT | DOWN | RIGHT|  ' " |      |
+        KC_TRNS, KC_NO, KC_DEL, KC_END, KC_PGDN, KC_NO,              KC_END, KC_LEFT, KC_DOWN, KC_RGHT, KC_QUOT, KC_NO, \
     // |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
     // |      |      |      |      |      |      _-------|    |-------|  - _ |  = + | [ {  | ] }  |  \ | |      |
+     KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,        KC_NO, KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS, KC_NO, \
     // `-----------------------------------------/       /     \      \-----------------------------------------'
-    //            | Game | LAlt | LCTR |Arrows| /Space  /       \RShift\  |Enter | Win  | RAlt | RCTR |
-    //            | mode |      |      | mode |/       /         \      \ |      |      |      |      |
+    //            |      |      | ALT  |  Win | /Space  /       \Leader\  |  Del |Arrows| RAlt | RCTR |
+    //            |      |      |      |      |/       /         \      \ |      | mode |      |      |
+                KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS, KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS \
     //            `----------------------------------'           '------''---------------------------'
-                    KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, \
-                    KC_TRNS, KC_NO, KC_PSCR, KC_HOME, KC_PGUP, KC_NO, KC_HOME, KC_NO, KC_UP, KC_NO, KC_NO, KC_F12, \
-                    KC_TRNS, KC_NO, KC_DEL, KC_END, KC_PGDN, KC_NO, KC_END, KC_LEFT, KC_DOWN, KC_RGHT, KC_QUOT, KC_NO, \
-                    KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS, KC_NO, \
-                    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS \
                     ),
     /* Layer 2
      * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -66,11 +114,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *            `----------------------------------'           '------''---------------------------'
      */
     [_Gaming] = LAYOUT( \
-                    KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_NO, \
+                    KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, TG(2), \
                     KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_UP, KC_O, KC_P, KC_DEL, \
                     KC_LSFT, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_LEFT, KC_DOWN, KC_RGHT, KC_SCLN, KC_BSPC, \
                     KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_NO, KC_NO, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_NO, \
-                    TG(2), KC_LALT, KC_LCTL, KC_SPC, KC_SPC, KC_TRNS, KC_TRNS, KC_RGUI, KC_RALT, KC_RCTL \
+                    KC_NO, KC_LALT, KC_LCTL, KC_SPC, KC_SPC, KC_TRNS, KC_TRNS, KC_RGUI, KC_RALT, KC_RCTL \
                     ),
 
 };
@@ -116,7 +164,7 @@ static void print_status_narrow(void) {
 }
 
 
-#define TAP_FRAMES 2
+#define ANIM_FRAMES 2
 #define ANIM_FRAME_DURATION 200 // how long each frame lasts in ms
 #define ANIM_SIZE 636 // number of bytes in array, minimize for adequate firmware size, max is 1024
 
@@ -124,11 +172,11 @@ uint32_t anim_timer = 0;
 uint32_t anim_sleep = 0;
 
 // uint8_t current_prep_frame = 0; // uncomment if PREP_FRAMES >1
-uint8_t current_tap_frame = 0;
+uint8_t current_anim_frame = 0;
 
 // Images credit j-inc(/James Incandenza) and pixelbenny. Credit to obosob for initial animation approach.
 static void render_anim(void) {
-    static const char PROGMEM tap[TAP_FRAMES][ANIM_SIZE] = {
+    static const char PROGMEM anim[ANIM_FRAMES][ANIM_SIZE] = {
         {
         0,  0,126,126, 24, 60,102, 66,  0, 12, 28,112,112, 28, 12,  0,116,116, 20, 20,124,104,  0,124,124,  0,112,120, 44, 36,124,124,0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,128,  0,  0,  0,  0,  0,128, 64, 64, 32, 32, 32, 32, 16, 16, 16, 16,  8,  4,  2,  1,  1,  2, 12, 48, 64,128,  0,  0,  0,  0,  0,  0,  0,248,248,248,248,  0,  0,  0,  0,  0,128,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,128,128,
         0,  0,  0,  0,192, 96, 48, 24, 12,132,198, 98, 35, 51, 17,145,113,241,113,145, 17, 51, 35, 98,198,132, 12, 24, 48, 96,192,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 30,225,  0,  0,  1,  1,  2,  2,129,128,128,  0,  0,128,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,  0, 48, 48,  0,  0,  1,  1,  2,  4,  8, 16, 32, 67,135,  7,  1,  0,184,188,190,159, 95, 95, 79, 76, 32, 32, 32, 32, 16, 16, 16, 16,  8,  8,  8,  8,  8,196,  4,196,  4,196,  2,194,  2,194,  1,  1,  1,  1,  0,  0,  0,
@@ -147,8 +195,8 @@ static void render_anim(void) {
 
     //assumes 1 frame prep stage
     void animation_phase(void) {
-        current_tap_frame = (current_tap_frame + 1) % TAP_FRAMES;
-        oled_write_raw_P(tap[abs((TAP_FRAMES-1)-current_tap_frame)], ANIM_SIZE);
+        current_anim_frame = (current_anim_frame + 1) % ANIM_FRAMES;
+        oled_write_raw_P(anim[abs((ANIM_FRAMES-1)-current_anim_frame)], ANIM_SIZE);
     }
     if(timer_elapsed32(anim_timer) > ANIM_FRAME_DURATION) {
         anim_timer = timer_read32();
