@@ -15,41 +15,42 @@ enum sofle_layers {
         LEADER_DICTIONARY() {
             leading = false;
             leader_end();
+            // When I press KC_LEAD and then 9, this sends [
             SEQ_ONE_KEY(KC_9) {
-                // When I press KC_LEAD and then Backspace, this sends Delete
-                SEND_STRING("<");   
+                SEND_STRING("[");   
             }
+            // When I press KC_LEAD and then 0, this sends ]
             SEQ_ONE_KEY(KC_0) {
-                // When I press KC_LEAD and then Backspace, this sends Delete
-                SEND_STRING(">");   
+                SEND_STRING("]");   
             }
+            // When I press KC_LEAD and then double tap 9, this sends {
             SEQ_TWO_KEYS(KC_9, KC_9) {
-                // When I press KC_LEAD and then Backspace, this sends Delete
                 SEND_STRING("{");   
             }
+            // When I press KC_LEAD and then double tap 0, this sends }
             SEQ_TWO_KEYS(KC_0, KC_0)     {
-                // When I press KC_LEAD and then Backspace, this sends Delete
                 SEND_STRING("}");   
             }
-            // // Note: This is not an array, you don't need to put any commas
-            // // or semicolons between sequences.
+            // When I press KC_LEAD and then double tap S, this sends WIN + SHIFT + S to snip a screenshot
             SEQ_TWO_KEYS(KC_S, KC_S) {
-                // When I press KC_LEAD and then double tap S, this sends WIN + SHIFT + S to snip a screenshot
                 SEND_STRING(SS_LSFT( SS_LGUI("s")));
             }
-
-            // SEQ_THREE_KEYS(KC_X, KC_U, KC_U) {
-            //     // When I press KC_LEAD and tap X and then double tap S, this sends CMD + OPT + CTRL + Eject / Power to shutdown
-            //     register_code(KC_LGUI);  
-            //     register_code(KC_LCTL);
-            //     register_code(KC_LOPT);
-            //     register_code(KC_POWER);
-            //     unregister_code(KC_POWER);
-            //     unregister_code(KC_LCTL);
-            //     unregister_code(KC_LOPT);
-            //     unregister_code(KC_LGUI);
-            // }
-
+            // When I press KC_LEAD and then T, this sends CTRL + TAB
+            SEQ_ONE_KEY(KC_T) {
+                register_code(KC_LCTL);
+                register_code(KC_TAB);
+                unregister_code(KC_TAB);
+                unregister_code(KC_LCTL);
+            }
+            // When I press KC_LEAD and then double tap T, this sends CTRL + SHIFT + TAB
+            SEQ_TWO_KEYS(KC_T, KC_T) {
+                register_code(KC_LCTL);
+                register_code(KC_LSFT);
+                register_code(KC_TAB);
+                unregister_code(KC_TAB);
+                unregister_code(KC_LSFT);
+                unregister_code(KC_LCTL);
+            }
         }
     }
 
@@ -65,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_1,  KC_2,  KC_3,  KC_4,  KC_5,                     KC_6,  KC_7,  KC_8,  KC_9,   KC_0, TG(2), \
     // |------+------+------+------+------+------|                    |------+------+------+------+------+------|
     // | Tab  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |  UP  |   O  |   P  |      |
-        KC_TAB, KC_Q,   KC_W,  KC_E,  KC_R,  KC_T,                       KC_Y,  KC_U,  KC_I,  KC_O,  KC_P, KC_NO, \
+        KC_TAB, KC_Q,   KC_W,  KC_E,  KC_R,  KC_T,                       KC_Y,  KC_U,  KC_I,  KC_O,  KC_P, KC_QUOT, \
     // |------+------+------+------+------+------|                    |------+------+------+------+------+------|
     // |LShift|   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |  ; : | Enter|
         KC_LSFT, KC_A,  KC_S,  KC_D,  KC_F,  KC_G,                      KC_H,  KC_J, KC_K,  KC_L, KC_SCLN, KC_ENT, \
@@ -85,11 +86,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // | ESC  |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | Game |
         KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,                      KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_TRNS, \
     // |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-    // | Tab  |      | Psc  | Home |      |      |                    | Home |      |  UP  |  F11 | F12  |      |
-       KC_TRNS, KC_NO, KC_PSCR, KC_HOME, KC_PGUP, KC_NO,              KC_HOME, KC_NO, KC_UP, KC_F11, KC_F12, KC_NO, \
+    // | Tab  |      | Psc  | Home |      |      |                    | Home |      |  UP  |  F11 | F12  | ' "  |
+       KC_TRNS, KC_NO, KC_PSCR, KC_HOME, KC_PGUP, KC_NO,              KC_HOME, KC_NO, KC_UP, KC_F11, KC_F12, KC_QUOT, \
     // |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-    // |LShift| Del  | End  |      |      |      |-------.    ,-------| End  | LEFT | DOWN | RIGHT|  ' " |      |
-        KC_TRNS, KC_NO, KC_DEL, KC_END, KC_PGDN, KC_NO,              KC_END, KC_LEFT, KC_DOWN, KC_RGHT, KC_QUOT, KC_NO, \
+    // |LShift| Del  | End  |      |      |      |-------.    ,-------| End  | LEFT | DOWN | RIGHT|      |      |
+        KC_TRNS, KC_NO, KC_DEL, KC_END, KC_PGDN, KC_NO,              KC_END, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO, KC_NO, \
     // |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
     // |      |      |      |      |      |      _-------|    |-------|  - _ |  = + | [ {  | ] }  |  \ | |      |
      KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,        KC_NO, KC_MINS, KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS, KC_NO, \
@@ -115,8 +116,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_Gaming] = LAYOUT( \
                     KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, TG(2), \
-                    KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_UP, KC_O, KC_P, KC_DEL, \
-                    KC_LSFT, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_LEFT, KC_DOWN, KC_RGHT, KC_SCLN, KC_BSPC, \
+                    KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_UP, KC_O, KC_P, KC_NO, \
+                    KC_LSFT, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_LEFT, KC_DOWN, KC_RGHT, KC_SCLN, KC_NO, \
                     KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_NO, KC_NO, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_NO, \
                     KC_NO, KC_LALT, KC_LCTL, KC_SPC, KC_SPC, KC_TRNS, KC_TRNS, KC_RGUI, KC_RALT, KC_RCTL \
                     ),
