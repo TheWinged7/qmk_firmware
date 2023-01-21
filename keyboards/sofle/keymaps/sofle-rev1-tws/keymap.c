@@ -273,3 +273,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     }
 
 #endif
+
+#ifdef RGB_MATRIX_ENABLE
+
+    // rgb_matrix_mode(RGBLIGHT_MODE_STATIC_LIGHT);
+
+#endif
+
+#ifdef RGBLIGHT_ENABLE
+
+    // rgblight_sethsv (100, 213, 255);
+
+    // rgblight_sethsv(HSV_PURPLE);
+
+#endif
