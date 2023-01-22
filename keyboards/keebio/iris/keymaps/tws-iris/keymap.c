@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          leading = false;
          // When I press KC_LEAD and then L, this sends CMD + CTRL + Q
          SEQ_ONE_KEY(KC_L) {
-            SEND_STRING(SS_LCTRL( SS_LGUI("q")));
+            SEND_STRING(SS_LCTL( SS_LGUI("q")));
          }
          // When I press KC_LEAD and then T, this sends CTRL + TAB
          SEQ_ONE_KEY(KC_T) {
@@ -106,8 +106,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             register_code(KC_LGUI);
             register_code(KC_LCTL);
             register_code(KC_LOPT);
-            register_code(KC_POWER);
-            unregister_code(KC_POWER);
+            register_code(KC_PWR);
+            unregister_code(KC_PWR);
             unregister_code(KC_LCTL);
             unregister_code(KC_LOPT);
             unregister_code(KC_LGUI);
