@@ -28,7 +28,6 @@ for more options.
     #undef RGBLIGHT_DEFAULT_SAT
     #undef RGBLIGHT_DEFAULT_VAL
     #undef RGBLIGHT_LIMIT_VAL
-    #undef RGBLIGHT_DEFAULT_MODE
 
     #define RGBLED_NUM 72
 	
@@ -67,9 +66,9 @@ for more options.
     #define RGB_MATRIX_VAL_STEP 8
     #define RGB_MATRIX_SPD_STEP 10
     
-    #define RGB_MATRIX_DEFAULT_HUE 100 // Sets the default hue value, if none has been set
-    #define RGB_MATRIX_DEFAULT_SAT 120 // Sets the default saturation value, if none has been set
-    #define RGB_MATRIX_DEFAULT_SPD 5 // Sets the default animation speed, if none has been set
+    #define RGB_MATRIX_DEFAULT_HUE 220 // Sets the default hue value, if none has been set
+    #define RGB_MATRIX_DEFAULT_SAT 255 // Sets the default saturation value, if none has been set
+    #define RGB_MATRIX_DEFAULT_SPD 50 // Sets the default animation speed, if none has been set
     #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 
     #define RGB_MATRIX_TIMEOUT 0 // number of milliseconds to wait until rgb automatically turns off
@@ -80,9 +79,6 @@ for more options.
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 
     // #define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
-    
-    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE
-    #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_REACTIVE 
 
 #endif
 
@@ -97,15 +93,15 @@ for more options.
     #undef RGBLIGHT_EFFECT_KNIGHT
     #undef RGBLIGHT_EFFECT_CHRISTMAS
     #undef RGBLIGHT_EFFECT_STATIC_GRADIENT
-    // #undef RGBLIGHT_EFFECT_RGB_TEST
+    #undef RGBLIGHT_EFFECT_RGB_TEST
     #undef RGBLIGHT_EFFECT_ALTERNATING
     #undef RGBLIGHT_EFFECT_TWINKLE
 
-    #undef RGBLIGHT_MODE_STATIC_LIGHT
 
-    #define RGBLIGHT_EFFECT_RGB_TEST
-
-    // #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT
+    #ifdef RGBLIGHT_DEFAULT_MODE
+        #undef RGBLIGHT_DEFAULT_MODE
+        #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT
+    #endif
 #endif
 
 // MATRIX
@@ -138,4 +134,8 @@ for more options.
     #undef ENABLE_RGB_MATRIX_SOLID_SPLASH
     #undef ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
+
+    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE
+    #undef RGB_MATRIX_DEFAULT_MODE
+    #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_REACTIVE 
 #endif
