@@ -49,7 +49,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    // at leader start change lights colour to white
    void leader_start_user(void) {
       // sequence started
-      #ifdef RGBLIGHT_ENABLE
+      #ifdef RGB_MATRIX_ENABLE
+         rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
          // rgblight_sethsv(HSV_WHITE);
          rgb_matrix_sethsv(HSV_WHITE);
       #endif
@@ -82,27 +83,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          // after leader ends change lights colour to match curren layer state
          switch (get_highest_layer(layer_state)) {
          case _ARROW:
-               rgb_matrix_sethsv(HSV_BLUE);
+               rgb_matrix_sethsv(HSV_CYAN);
                // rgblight_sethsv(HSV_BLUE);
                break;
          default: // for any other layers, or the default layer
-               rgb_matrix_sethsv (HSV_TEAL);
-               // rgblight_sethsv (100, 213, 255);
+               rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR );
+
+               rgb_matrix_sethsv (HSV_GREEN);
                break;
       }
    }
 #endif
 
 
-#ifdef RGBLIGHT_ENABLE
+#ifdef RGB_MATRIX_ENABLE
 
    layer_state_t layer_state_set_user(layer_state_t state) {
       switch (get_highest_layer(state)) {
          case _ARROW:
-               rgblight_sethsv(HSV_BLUE);
+               rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR );
+               rgb_matrix_sethsv(HSV_CYAN);
                break;
          default: // for any other layers, or the default layer
-               rgblight_sethsv (100, 213, 255);
+               rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR );
+               rgb_matrix_sethsv (HSV_GREEN);
                break;
       }
    return state;
