@@ -7,7 +7,6 @@ enum iris_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _QWERTY,
     _ARROW,
-
 };
 
 
@@ -26,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LCTL , KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_SPC,            KC_NO,   KC_N,    KC_M,    KC_COMM, KC_DOT, KC_SLSH,  KC_NO,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴   ┬────┘        └───┬    ┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    KC_LALT, KC_LGUI, KC_SPC,                    KC_BSPC,  OSL(1),  OSL(1)
+                                    KC_LGUI,  KC_LALT, KC_SPC,                    KC_BSPC,  OSL(1),  OSL(1)
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -40,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LCTL , KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,            KC_NO,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,  KC_NO,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴   ┬────┘        └───┬    ┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    KC_LALT, KC_LGUI, KC_SPC,                    KC_DEL,  OSL(1),  OSL(1)
+                                    KC_LGUI,  KC_LALT, KC_SPC,                    KC_DEL,  OSL(1),  OSL(1)
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   )
 };
@@ -86,13 +85,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             case _ARROW:
                     rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
                     rgb_matrix_sethsv(HSV_WHITE);
-
-                // rgblight_sethsv(HSV_BLUE);
                 break;
             default: // for any other layers, or the default layer
                 rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR );
                 rgb_matrix_sethsv (85, 255, 200);
-                //    rgb_matrix_sethsv (HSV_GREEN);
                 break;
             }
         #endif
@@ -111,7 +107,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          default: // for any other layers, or the default layer
                rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR );
                rgb_matrix_sethsv (85, 255, 200);
-            //    rgb_matrix_sethsv (HSV_GREEN);
                break;
       }
    return state;
