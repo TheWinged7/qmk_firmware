@@ -29,14 +29,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR // Sets the default mode, if none has been set
 #define RGB_MATRIX_DEFAULT_HUE 85 // Sets the default hue value, if none has been set
 #define RGB_MATRIX_DEFAULT_SAT 255 // Sets the default saturation value, if none has been set
-#define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
+#define RGB_MATRIX_DEFAULT_VAL 200 // Sets the default brightness value, if none has been set
 
 #define RGB_DISABLE_WHEN_USB_SUSPENDED  // turns off lights when PC is suspended
-#define RGBLIGHT_DISABLE_KEYCODES   // disables the ability to control RGB Light from the keycodes. 
-#define RGB_DISABLE_WHEN_USB_SUSPENDED    // the RGB lighting will be switched off when the host goes to sleep 
+#define RGBLIGHT_DISABLE_KEYCODES       // disables the ability to control RGB Light from the keycodes.
+#define RGB_DISABLE_WHEN_USB_SUSPENDED    // the RGB lighting will be switched off when the host goes to sleep
 #define RGBLIGHT_SPLIT
 
-
+// Disable unused RGB modes
 #undef RGB_MATRIX_ALPHAS_MODS         // Static dual hue speed is hue for secondary hue
 #undef RGB_MATRIX_GRADIENT_UP_DOWN    // Static gradient top to bottom speed controls how much gradient changes
 #undef RGB_MATRIX_BREATHING           // Single hue brightness cycling animation

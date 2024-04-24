@@ -51,8 +51,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       // sequence started
       #ifdef RGB_MATRIX_ENABLE
          rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
-         // rgblight_sethsv(HSV_WHITE);
-         rgb_matrix_sethsv(HSV_WHITE);
+        rgb_matrix_sethsv(HSV_CYAN);
+
       #endif
    }
 
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          else if (leader_sequence_two_keys(KC_P, KC_P)) {
             SEND_STRING("git push");
          }
-         
+
          // When I press KC_LEAD and tap X and then double tap U, this sends CMD + OPT + CTRL + Eject / Power to shutdown
          // SEQ_THREE_KEYS(KC_X, KC_U, KC_U) {
          //    register_code(KC_LGUI);
@@ -81,17 +81,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          // }
 
          // after leader ends change lights colour to match curren layer state
-         switch (get_highest_layer(layer_state)) {
-         case _ARROW:
-               rgb_matrix_sethsv(HSV_CYAN);
-               // rgblight_sethsv(HSV_BLUE);
-               break;
-         default: // for any other layers, or the default layer
-               rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR );
+        #ifdef RGB_MATRIX_ENABLE
+            switch (get_highest_layer(layer_state)) {
+            case _ARROW:
+                    rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
+                    rgb_matrix_sethsv(HSV_WHITE);
 
-               rgb_matrix_sethsv (HSV_GREEN);
-               break;
-      }
+                // rgblight_sethsv(HSV_BLUE);
+                break;
+            default: // for any other layers, or the default layer
+                rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR );
+                rgb_matrix_sethsv (85, 255, 200);
+                //    rgb_matrix_sethsv (HSV_GREEN);
+                break;
+            }
+        #endif
    }
 #endif
 
@@ -102,11 +106,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       switch (get_highest_layer(state)) {
          case _ARROW:
                rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR );
-               rgb_matrix_sethsv(HSV_CYAN);
+               rgb_matrix_sethsv(HSV_WHITE);
                break;
          default: // for any other layers, or the default layer
                rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR );
-               rgb_matrix_sethsv (HSV_GREEN);
+               rgb_matrix_sethsv (85, 255, 200);
+            //    rgb_matrix_sethsv (HSV_GREEN);
                break;
       }
    return state;
