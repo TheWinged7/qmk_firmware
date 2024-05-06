@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DISABLE_WHEN_USB_SUSPENDED  // turns off lights when PC is suspended
 #define RGBLIGHT_DISABLE_KEYCODES       // disables the ability to control RGB Light from the keycodes.
 #define RGB_DISABLE_WHEN_USB_SUSPENDED    // the RGB lighting will be switched off when the host goes to sleep
+#define RGB_SLEEP    // the RGB lighting will be switched off when the host goes to sleep
 #define RGBLIGHT_SPLIT
 
 // Disable unused RGB modes

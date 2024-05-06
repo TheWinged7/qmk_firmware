@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT , KC_DEL,  KC_END, KC_PGDN,  KC_F,    KC_G,                              KC_END,  KC_LEFT, KC_DOWN, KC_RIGHT,  KC_NO,  KC_TRNS,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_LCTL , KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,            KC_NO,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,  KC_NO,
+     KC_LCTL , KC_NO,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,            KC_NO,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,  RGB_TOG,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴   ┬────┘        └───┬    ┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     KC_LGUI,  KC_LALT, KC_SPC,                    KC_DEL,  OSL(1),  OSL(1)
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -68,15 +68,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          }
 
          // When I press KC_LEAD and tap X and then double tap U, this sends CMD + OPT + CTRL + Eject / Power to shutdown
-         // SEQ_THREE_KEYS(KC_X, KC_U, KC_U) {
-         //    register_code(KC_LGUI);
-         //    register_code(KC_LCTL);
-         //    register_code(KC_LOPT);
-         //    register_code(KC_PWR);
-         //    unregister_code(KC_PWR);
-         //    unregister_code(KC_LCTL);
-         //    unregister_code(KC_LOPT);
-         //    unregister_code(KC_LGUI);
+         // leader_sequence_three_keys(KC_X, KC_U, KC_U) {
+         //    tap_code16(LGUI(LCTL(LOPT(KC_PWR))));
          // }
 
          // after leader ends change lights colour to match curren layer state
@@ -101,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    layer_state_t layer_state_set_user(layer_state_t state) {
       switch (get_highest_layer(state)) {
          case _ARROW:
-               rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR );
+               rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
                rgb_matrix_sethsv(HSV_WHITE);
                break;
          default: // for any other layers, or the default layer
